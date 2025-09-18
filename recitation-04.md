@@ -1,6 +1,6 @@
 # CMPS 2200  Recitation 04
 
-**Name (Team Member 1):**_________________________  
+**Name (Team Member 1):** Natalie Gockerman  
 **Name (Team Member 2):**_________________________
 
 
@@ -35,11 +35,15 @@ To use this function to count words, you'll need to implement your own `map_f` a
 3. If the above are correct, then you should now be able to test it the full solution `test_word_count`
 
 4. Assume that a word `w` appears `n` times. What is the **work** and **span** of `word_count_reduce` for this word, assuming a parallel implementation of the `reduce` function?
+   
+   We know word_count_reduce calls reduce(plus, 0, ones) on a list of n ones. The reduce() function splits the list in half recursively and combines the results with 1 plus.
+   Examining the tree of the reduce function level 1 has n/2 additions, level 2 has n/4 additions, all the way to the root, which does 1 addition.
+   Summing all levels (n/2) + (n/4) + ... + 1 = n - 1, so W(n) = n - 1 = Θ(n).
+   To calculate the span, we know levels may compute paralell, but each must occure in order.
+   The height of the tree = log2 n and each level completes one dependent addition, so S(n) = log2 n = Θ(log n).
 
-**Enter answer here**
 
-
-5. Why are we going through all this trouble? Couldn't I just use this function to count words?
+6. Why are we going through all this trouble? Couldn't I just use this function to count words?
 
 ```python
 docs = ['i am sam i am', 'sam is ham']
@@ -52,7 +56,9 @@ for doc in docs:
 
 What is the problem that prevents us from easily parallelizing this solution?
 
-**Enter answer here**
+    This solution cannot be easily parallelized because of the "race condition", meaning that the 2 parallel runs will be racing to update the same number periodically (instead of seperately counting and summing together at the end), causing them to have errors and work over eachother.
+    For example, if both parallel runs are counting and both find a matching term, they will both find that term and adds 1 to the orginial count. If this occurs at the same time, they will both see a value (assume 1), each will add 1 to that and reset the count to 2 when in reality it should be 3.
+    MapReduce solves this issue because the parallelized version pairs independently of eachother, summing all matches in their side, then sum together at the end.
 
 
 ## Part 2: Sentiment analysis
