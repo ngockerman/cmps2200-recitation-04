@@ -138,6 +138,7 @@ def sentiment_map(doc,
         if check in neg_terms:
             final_list.append(('negative', 1)) # does the same for negative words
     return final_list # returns the final list
+                      
                         
                       
 
