@@ -137,8 +137,7 @@ def sentiment_map(doc,
             final_list.append(('positive', 1)) # checks if word is in list of positive terms, if so, adds tuple to list with key positive and value 1
         if check in neg_terms:
             final_list.append(('negative', 1)) # does the same for negative words
-    return final_list # returns the final list
-                      
+    return final_list # returns the final list 
                         
                       
 
