@@ -130,14 +130,14 @@ def sentiment_map(doc,
     [('negative', 1), ('negative', 1)]
     """
     ###TODO
-    final_list = [] # initializes list to return at end
-    for token in doc.split(): # splits doc into individual tokens for each word and iterates through them
-        check = token.lower() # sets words to lowercase, so case won't affect results
-        if check in pos_terms:
-            final_list.append(('positive', 1)) # checks if word is in list of positive terms, if so, adds tuple to list with key positive and value 1
-        if check in neg_terms:
-            final_list.append(('negative', 1)) # does the same for negative words
-    return final_list # returns the final list
+        final_list = [] # initializes list to return at end
+        for token in doc.split(): # splits doc into individual tokens for each word and iterates through them
+            check = token.lower() # sets words to lowercase, so case won't affect results
+            if check in pos_terms:
+                final_list.append(('positive', 1)) # checks if word is in list of positive terms, if so, adds tuple to list with key positive and value 1
+            if check in neg_terms:
+                final_list.append(('negative', 1)) # does the same for negative words
+        return final_list # returns the final list
                         
                       
 
